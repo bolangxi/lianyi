@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: ted-update-server
+  datasource:
+    url: jdbc:mysql://172.17.3.225:3306/ted?serverTimezone=CTT&useSSL=false&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false
+    username: developer
+    password: tNzDRFkPCAX0o
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    druid:
+      initial-size: 5
+      min-idle: 5
+      max-active: 10
+      query-timeout: 6000
+      transaction-query-timeout: 6000
+      remove-abandoned-timeout: 1800
+      filters: stat,config
+
+blockchain:
+  asset: eth
+  block:
+    init:
+      height: 6680
+    number:
+      limit: 300
+    confirm: 12
+  request:
+    url: http://47.111.77.241:8547
+  max-rollback-count: 20
+
+task:
+  address-min-balance:
+    scheduled: 0 0 0 * * ? # 每日凌晨初始化地址最小余额任务
+  block-confirm:
+    scheduled: 0/10 * * * * ? # eth 12个区块确认job
+  block-info:
+    scheduled: 0/10 * * * * ? # 区块高度更新任务
+  block-tx:
+    scheduled: 0/10 * * * * ? # 区块交易更新任务
+

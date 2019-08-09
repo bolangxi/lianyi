@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ted.resonance.mapper.WithdrawOrderLogMapper">
+    <resultMap id="BaseResultMap" type="com.ted.resonance.entity.WithdrawOrderLog">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="order_id" property="orderId" jdbcType="BIGINT"/>
+        <result column="currency" property="currency" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="operator_id" property="operatorId" jdbcType="VARCHAR"/>
+        <result column="event" property="event" jdbcType="VARCHAR"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="parent_currency" property="parentCurrency" jdbcType="VARCHAR"/>
+
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, order_id,currency, create_time, operator_id, event, remark, parent_currency
+    </sql>
+    <select id="findAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from withdraw_order_log
+        <where>
+            order_id = #{orderId}
+            <if test="event!=null">
+                and event=#{event}
+            </if>
+        </where>
+        ORDER BY id DESC
+    </select>
+
+    <insert id="insert" parameterType="com.ted.resonance.entity.WithdrawOrderLog" useGeneratedKeys="true"
+            keyProperty="id">
+      insert into withdraw_order_log (id, order_id,
+      currency, operator_id,event,remark,parent_currency
+      )
+      values (#{id,jdbcType=BIGINT},
+      #{orderId,jdbcType=BIGINT},
+      #{currency,jdbcType=VARCHAR},
+      #{operatorId,jdbcType=VARCHAR},
+      #{event,jdbcType=VARCHAR},
+      #{remark,jdbcType=VARCHAR},
+      #{parentCurrency,jdbcType=VARCHAR}
+      )
+    </insert>
+</mapper>

@@ -1,0 +1,17 @@
+server:
+  port: 8765
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ted
+    password: rootroot
+    url: jdbc:mysql://47.244.194.202:3306/exchange?serverTimezone=CTT&useSSL=false&useUnicode=true&characterEncoding=utf-8
+  jpa:
+    show-sql: false
+    open-in-view: false
+    database: mysql
+
+etcNode: http://47.111.77.241:8545
+ethNode: http://47.111.77.241:8547
+TEDUSDT: 0.01

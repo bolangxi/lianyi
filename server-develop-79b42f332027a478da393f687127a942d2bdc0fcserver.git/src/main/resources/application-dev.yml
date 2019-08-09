@@ -1,0 +1,65 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: developer
+    password: tNzDRFkPCAX0o
+    url: jdbc:mysql://172.17.3.225:3306/ted?serverTimezone=CTT&useSSL=false&useUnicode=true&characterEncoding=utf-8
+  jpa:
+    show-sql: false
+    open-in-view: false
+    database: mysql
+  redis:
+    host: 172.17.3.126
+    port: 6379
+    password:
+#  jackson:
+#    serialization:
+#      write-dates-as-timestamps: true
+
+mybatis:
+  type-aliases-package: com.atoken.activity.entity
+  mapper-locations: classpath:mapper/ted/*.xml
+
+
+cron:
+  ex:
+    activity: 0 */2 * * * ?     # 冒险家活动状态变更
+    contribution: 0 */2 * * * ? # 冒险家贡献值计算job
+  ca:
+    coupon: 0 */2 * * * ?       # 炼金师收益入账
+    status: 0 */1 * * * ?       # 领金券状态job（领金券有效期24H）
+    DrawCoupons: 0 10 0 * * ?   # 锁仓+机会+领金券job
+  withdraw:
+    confirm: 0 */2 * * * ?      # 提币 确认
+    broadcast: 0 */2 * * * ?    # 提币 广播交易
+
+
+guava:
+  capacity: 10 #字典信息缓存的容量
+  maximum-size: 100 #字典信息缓存的最大容量
+  over-time: 5 #当缓存项在指定的时间段内没有被读或写就会被回收
+  concurrency-level: 8 #并发级别,即允许最多2个线程并发更新, 默认值为4
+
+
+logging:
+  level:
+    com.ted.resonance.mapper: debug
+
+#etc与eth的秘钥需要不同，因为在广播提币交易的时候无法区分是eth和etc
+private-key:
+  eth: "0xc8e8142c213d1f71a4af88f8fbb55267a52aca1f9e4d3ee4c822e1c305e53861"
+  etc: "0xc8e8142c213d1f71a4af88f8fbb55267a52aca1f9e4d3ee4c822e1c305e53861"
+
+# ted的合约地址
+ted-contract-address: "0x13cc8f58a1df7669a05ae073fb89ae3287b22009"
+# 冒险家合约地址
+ex-contract-address: "0x643d96a399edba49e86676ee732ee12a5ffad800"
+
+
+
+
+
+
